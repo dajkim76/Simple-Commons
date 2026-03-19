@@ -2,9 +2,9 @@
 <resources>
     <string name="ok">확인</string>
     <string name="cancel">취소</string>
-    <string name="close">Close</string>
-    <string name="back">Back</string>
-    <string name="nothing">Nothing</string>
+    <string name="close">닫기</string>
+    <string name="back">뒤로</string>
+    <string name="nothing">없음</string>
     <string name="later">나중</string>
     <string name="save_as">다른 이름으로 저장</string>
     <string name="file_saved">파일저장 성공</string>
@@ -16,11 +16,11 @@
     <string name="edit_with">편집 앱으로 열기</string>
     <string name="edit">Edit</string>
     <string name="no_app_found">연결 가능한 앱 없음</string>
-    <string name="no_browser_found">No browser found</string>
-    <string name="no_email_client_found">No email client found</string>
+    <string name="no_browser_found">브라우저가 없습니다.</string>
+    <string name="no_email_client_found">이메일 앱이 없습니다.</string>
     <string name="set_as">다른 앱에 설정</string>
-    <string name="copy_to_clipboard">Copy to clipboard</string>
-    <string name="copy_number_to_clipboard">Copy number to clipboard</string>
+    <string name="copy_to_clipboard">클립보드에 복사하기</string>
+    <string name="copy_number_to_clipboard">클립보드에 숫자 복사하기</string>
     <string name="value_copied_to_clipboard">클립보드에 복사됨</string>
     <string name="value_copied_to_clipboard_show">클립보드에 복사됨:\n%s</string>
     <string name="dial_number">Dial number</string>
@@ -37,7 +37,7 @@
     <string name="select_a_different_color">다른 색을 선택해 주세요</string>
     <string name="download">다운로드</string>
     <string name="notification">알림</string>
-    <string name="notifications">Notifications</string>
+    <string name="notifications">알림</string>
     <string name="email">이메일</string>
     <string name="previous">이전</string>
     <string name="playpause">재생 / 정지</string>
@@ -297,9 +297,9 @@
     </plurals>
     <!-- Storages -->
     <string name="select_storage">저장공간 선택</string>
-    <string name="storage">Storage</string>
+    <string name="storage">저장공간</string>
     <string name="internal">내장 메모리</string>
-    <string name="internal_storage">Internal Storage</string>
+    <string name="internal_storage">내장 저장공간</string>
     <string name="sd_card">외장 메모리</string>
     <string name="root">루트</string>
     <string name="wrong_root_selected">잘못된 폴더가 선택되었습니다. SD 카드의 루트 폴더를 선택하세요.</string>
@@ -396,7 +396,7 @@
     <string name="redo">앞으로</string>
     <string name="print">인쇄</string>
     <string name="print_pro">인쇄 (Pro)</string>
-    <string name="shortcut">Shortcut</string>
+    <string name="shortcut">바로가기</string>
     <string name="create_shortcut">바로가기 생성</string>
     <string name="create_shortcut_pro">바로가기 생성 (Pro)</string>
     <string name="add_number_to_contact">Add number to contact</string>
@@ -423,9 +423,9 @@
     <string name="name">이름</string>
     <string name="size">크기</string>
     <string name="last_modified">최종 수정시간</string>
-    <string name="date_created">Date created</string>
+    <string name="date_created">만든 날짜</string>
     <string name="date_taken">촬영 날짜</string>
-    <string name="date_added">Date added</string>
+    <string name="date_added">추가된 날짜</string>
     <string name="title">제목</string>
     <string name="filename">파일명</string>
     <string name="extension">파일 확장자</string>
