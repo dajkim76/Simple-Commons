@@ -37,9 +37,9 @@ fun AppTheme(
     TransparentSystemBars()
     Theme(theme = currentTheme) {
         content()
-        if (!view.isInEditMode) {
-            OnContentDisplayed()
-        }
+//        if (!view.isInEditMode) {
+//            OnContentDisplayed()
+//        }
     }
 }
 
