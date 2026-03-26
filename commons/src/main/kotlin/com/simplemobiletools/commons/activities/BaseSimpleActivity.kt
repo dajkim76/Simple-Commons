@@ -388,20 +388,20 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
     }
 
     fun updateRecentsAppIcon() {
-        if (baseConfig.isUsingModifiedAppIcon) {
-            val appIconIDs = getAppIconIDs()
-            val currentAppIconColorIndex = getCurrentAppIconColorIndex()
-            if (appIconIDs.size - 1 < currentAppIconColorIndex) {
-                return
-            }
-
-            val recentsIcon = BitmapFactory.decodeResource(resources, appIconIDs[currentAppIconColorIndex])
-            val title = getAppLauncherName()
-            val color = baseConfig.primaryColor
-
-            val description = ActivityManager.TaskDescription(title, recentsIcon, color)
-            setTaskDescription(description)
-        }
+//        if (baseConfig.isUsingModifiedAppIcon) {
+//            val appIconIDs = getAppIconIDs()
+//            val currentAppIconColorIndex = getCurrentAppIconColorIndex()
+//            if (appIconIDs.size - 1 < currentAppIconColorIndex) {
+//                return
+//            }
+//
+//            val recentsIcon = BitmapFactory.decodeResource(resources, appIconIDs[currentAppIconColorIndex])
+//            val title = getAppLauncherName()
+//            val color = baseConfig.primaryColor
+//
+//            val description = ActivityManager.TaskDescription(title, recentsIcon, color)
+//            setTaskDescription(description)
+//        }
     }
 
     fun updateMenuItemColors(menu: Menu?, baseColor: Int = getProperStatusBarColor(), forceWhiteIcons: Boolean = false) {
