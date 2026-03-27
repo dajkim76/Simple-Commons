@@ -76,8 +76,8 @@
     <string name="updating">수정중…</string>
     <string name="phone_storage">Phone storage</string>
     <string name="phone_storage_hidden">Phone storage (not visible by other apps)</string>
-    <string name="audio">Audio</string>
-    <string name="scanning">Scanning…</string>
+    <string name="audio">오디오</string>
+    <string name="scanning">스캐닝…</string>
     <!-- Events -->
     <string name="birthday">생일</string>
     <string name="anniversary">기념일</string>
@@ -616,8 +616,8 @@
     <!-- Settings -->
     <string name="settings">설정</string>
     <string name="purchase_simple_thank_you">심플 Thank You 구매하기</string>
-    <string name="general_settings">General</string>
-    <string name="color_customization">Color customization</string>
+    <string name="general_settings">일반</string>
+    <string name="color_customization">색상 맞춤 설정</string>
     <string name="improved_color_customization">Improved color customization</string>
     <string name="customize_colors">테마 및 색상 설정</string>
     <string name="customize_colors_locked">테마 및 색상 설정 (Locked)</string>
@@ -626,7 +626,7 @@
     <string name="customize_notifications">Customize notifications</string>
     <string name="notification_sound">Notification sound</string>
     <string name="use_english_language">영어로 언어 전환</string>
-    <string name="language">Language</string>
+    <string name="language">언어</string>
     <string name="show_hidden_items">숨김 항목 보이기</string>
     <string name="font_size">폰트 크기</string>
     <string name="small">작게</string>
@@ -685,7 +685,7 @@
     <string name="temporarily_show_excluded">Temporarily show excluded</string>
     <string name="stop_showing_excluded">Stop showing excluded</string>
     <!-- Default tab to open -->
-    <string name="manage_shown_tabs">Manage shown tabs</string>
+    <string name="manage_shown_tabs">표시되는 탭 관리</string>
     <string name="default_tab_to_open">Tab to open at app start</string>
     <string name="contacts_tab">Contacts</string>
     <string name="favorites_tab">Favorites</string>
@@ -821,12 +821,12 @@
     <string name="donate">기부하기</string>
     <string name="follow_us">팔로우</string>
     <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
-    <string name="support">Support</string>
-    <string name="help_us">Help us</string>
-    <string name="social">Social</string>
-    <string name="other">Other</string>
-    <string name="privacy_policy">Privacy policy</string>
-    <string name="version_placeholder">Version %s</string>
+    <string name="support">지원</string>
+    <string name="help_us">도와주세요</string>
+    <string name="social">소셜</string>
+    <string name="other">기타</string>
+    <string name="privacy_policy">개인정보 보호정책</string>
+    <string name="version_placeholder">버전 %s</string>
     <string name="hello">Hello :)</string>
     <string name="about_footer">Made with ❤️ in Slovakia</string>
     <string name="additional_info">추가 정보</string>
@@ -944,7 +944,7 @@
     <string name="faq_10_title_commons">I have purchased the app, but I cannot download it on another device.</string>
     <string name="faq_10_text_commons">Try clearing your Google Play app cache and restarting your device. It is some Google Play glitch, not really related to the app itself.</string>
     <!-- Contributors -->
-    <string name="contributors">Contributors</string>
+    <string name="contributors">기여자</string>
     <string name="translation">Translation</string>
     <string name="development">Development</string>
     <string name="other_help">Other help</string>
