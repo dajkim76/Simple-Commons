@@ -201,14 +201,15 @@ class CustomizationActivity : BaseSimpleActivity() {
         updateAutoThemeFields()
         handleAccentColorLayout()
         binding.customizationThemeHolder.setOnClickListener {
-            if (baseConfig.wasAppIconCustomizationWarningShown) {
-                themePickerClicked()
-            } else {
-                ConfirmationDialog(this, "", R.string.app_icon_color_warning, R.string.ok, 0) {
-                    baseConfig.wasAppIconCustomizationWarningShown = true
-                    themePickerClicked()
-                }
-            }
+            themePickerClicked()
+//            if (baseConfig.wasAppIconCustomizationWarningShown) {
+//                themePickerClicked()
+//            } else {
+//                ConfirmationDialog(this, "", R.string.app_icon_color_warning, R.string.ok, 0) {
+//                    baseConfig.wasAppIconCustomizationWarningShown = true
+//                    themePickerClicked()
+//                }
+//            }
         }
 
         if (binding.customizationTheme.value == getMaterialYouString()) {
