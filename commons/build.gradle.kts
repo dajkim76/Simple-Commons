@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.library)
-    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.parcelize)
-    `maven-publish`
+    alias(libs.plugins.compose.compiler)
 }
+
+
 
 android {
     compileSdk = libs.versions.app.build.compileSDKVersion.get().toInt()
@@ -34,43 +35,30 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-    }
-
     compileOptions {
         val currentJavaVersionFromLibs = JavaVersion.valueOf(libs.versions.app.build.javaVersion.get().toString())
         sourceCompatibility = currentJavaVersionFromLibs
         targetCompatibility = currentJavaVersionFromLibs
     }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = project.libs.versions.app.build.kotlinJVMTarget.get()
-        kotlinOptions.freeCompilerArgs = listOf(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-            "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
-            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-            "-opt-in=com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi",
-            "-Xcontext-receivers"
-        )
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(project.libs.versions.app.build.kotlinJVMTarget.get()))
+            freeCompilerArgs.addAll(
+                "-opt-in=kotlin.RequiresOptIn",
+                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+                "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
+                "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+                "-opt-in=com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi",
+                "-Xcontext-parameters"
+            )
+        }
     }
 
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
     }
     namespace = libs.versions.app.version.groupId.get()
-}
-
-publishing.publications {
-    create<MavenPublication>("release") {
-        groupId = libs.versions.app.version.groupId.get()
-        artifactId = name
-        version = libs.versions.app.version.versionName.get()
-        afterEvaluate {
-            from(components["release"])
-        }
-    }
 }
 
 dependencies {
@@ -83,11 +71,13 @@ dependencies {
     implementation(libs.androidx.biometric.ktx)
     implementation(libs.ez.vcard)
 
-
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.lifecycle)
     implementation(libs.bundles.compose)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.compose.view.binding)
-    debugImplementation(libs.bundles.compose.preview)
+
+    debugImplementation(libs.bundles.composePreview)
 
     api(libs.joda.time)
     api(libs.recyclerView.fastScroller)

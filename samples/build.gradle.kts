@@ -1,7 +1,10 @@
 plugins {
     alias(libs.plugins.android)
-    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.compose.compiler)
 }
+
+
+
 android {
     compileSdk = libs.versions.app.build.compileSDKVersion.get().toInt()
 
@@ -30,33 +33,23 @@ android {
         targetCompatibility = currentJavaVersionFromLibs
     }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = project.libs.versions.app.build.kotlinJVMTarget.get()
-        kotlinOptions.freeCompilerArgs = listOf(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-Xcontext-receivers"
-        )
-    }
-
     buildFeatures {
         buildConfig = true
         viewBinding = true
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-    }
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = project.libs.versions.app.build.kotlinJVMTarget.get()
-        kotlinOptions.freeCompilerArgs = listOf(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-            "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
-            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-            "-Xcontext-receivers"
-        )
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(project.libs.versions.app.build.kotlinJVMTarget.get()))
+            freeCompilerArgs.addAll(
+                "-opt-in=kotlin.RequiresOptIn",
+                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+                "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
+                "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+                "-Xcontext-parameters"
+            )
+        }
     }
 
     sourceSets {
@@ -74,7 +67,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.swiperefreshlayout)
 
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.lifecycle)
     implementation(libs.bundles.compose)
-    debugImplementation(libs.bundles.compose.preview)
+    debugImplementation(libs.bundles.composePreview)
 }

@@ -103,9 +103,13 @@ class FilepickerItemsAdapter(
                     val packageInfo = root.context.packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES)
                     if (packageInfo != null) {
                         val appInfo = packageInfo.applicationInfo
-                        appInfo.sourceDir = path
-                        appInfo.publicSourceDir = path
-                        appInfo.loadIcon(root.context.packageManager)
+                        if (appInfo != null) {
+                            appInfo.sourceDir = path
+                            appInfo.publicSourceDir = path
+                            appInfo.loadIcon(root.context.packageManager)
+                        } else {
+                            path
+                        }
                     } else {
                         path
                     }

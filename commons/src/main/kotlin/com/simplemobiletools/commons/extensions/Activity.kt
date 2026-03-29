@@ -104,7 +104,11 @@ fun Activity.showDonateOrUpgradeDialog() {
 
 fun Activity.isAppInstalledOnSDCard(): Boolean = try {
     val applicationInfo = packageManager.getPackageInfo(packageName, 0).applicationInfo
-    (applicationInfo.flags and ApplicationInfo.FLAG_EXTERNAL_STORAGE) == ApplicationInfo.FLAG_EXTERNAL_STORAGE
+    if (applicationInfo != null) {
+        (applicationInfo.flags and ApplicationInfo.FLAG_EXTERNAL_STORAGE) == ApplicationInfo.FLAG_EXTERNAL_STORAGE
+    } else {
+        false
+    }
 } catch (e: Exception) {
     false
 }
@@ -1161,13 +1165,16 @@ private fun BaseSimpleActivity.renameCasually(
 
 fun Activity.createTempFile(file: File): File? {
     return if (file.isDirectory) {
-        createTempDir("temp", "${System.currentTimeMillis()}", file.parentFile)
+        java.io.File.createTempFile("temp", "${System.currentTimeMillis()}", file.parentFile).apply {
+            delete()
+            mkdirs()
+        }
     } else {
         if (isRPlus()) {
             // this can throw FileSystemException, lets catch and handle it at the place calling this function
             kotlin.io.path.createTempFile(file.parentFile.toPath(), "temp", "${System.currentTimeMillis()}").toFile()
         } else {
-            createTempFile("temp", "${System.currentTimeMillis()}", file.parentFile)
+            java.io.File.createTempFile("temp", "${System.currentTimeMillis()}", file.parentFile)
         }
     }
 }

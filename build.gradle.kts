@@ -1,11 +1,5 @@
-plugins {
-    alias(libs.plugins.android).apply(false)
-    alias(libs.plugins.kotlinAndroid).apply(false)
-    alias(libs.plugins.ksp).apply(false)
-    alias(libs.plugins.parcelize).apply(false)
-    alias(libs.plugins.library).apply(false)
-    alias(libs.plugins.kotlinSerialization).apply(false)
-}
+// Root build file for Simple-Commons
+// Plugins are defined in the main project root build.gradle.kts
 
 tasks.register<Delete>("clean") {
     delete {
