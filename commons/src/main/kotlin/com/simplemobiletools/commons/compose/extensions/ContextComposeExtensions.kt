@@ -8,7 +8,7 @@ import com.simplemobiletools.commons.extensions.redirectToRateUs
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.BaseConfig
 
-val Context.config: BaseConfig get() = BaseConfig.newInstance(applicationContext)
+val Context.config: BaseConfig get() = BaseConfig.getInstance(applicationContext)
 
 fun Activity.rateStarsRedirectAndThankYou(stars: Int) {
     if (stars == 5) {

@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.androidx.exifinterface)
     implementation(libs.androidx.biometric.ktx)
     implementation(libs.ez.vcard)
+    implementation(libs.mmkv)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.lifecycle)

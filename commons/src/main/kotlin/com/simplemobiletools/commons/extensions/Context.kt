@@ -48,7 +48,8 @@ import com.simplemobiletools.commons.models.AlarmSound
 import com.simplemobiletools.commons.models.BlockedNumber
 import java.io.File
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 fun Context.getSharedPrefs() = getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE)
 
@@ -91,7 +92,7 @@ fun Context.showErrorToast(exception: Exception, length: Int = Toast.LENGTH_LONG
     showErrorToast(exception.toString(), length)
 }
 
-val Context.baseConfig: BaseConfig get() = BaseConfig.newInstance(this)
+val Context.baseConfig: BaseConfig get() = BaseConfig.getInstance(this)
 val Context.sdCardPath: String get() = baseConfig.sdCardPath
 val Context.internalStoragePath: String get() = baseConfig.internalStoragePath
 val Context.otgPath: String get() = baseConfig.OTGPath
