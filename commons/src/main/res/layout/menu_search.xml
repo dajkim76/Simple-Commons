@@ -4,8 +4,8 @@
     android:id="@+id/top_app_bar_layout"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:layout_marginStart="@dimen/activity_margin"
-    android:layout_marginEnd="@dimen/activity_margin">
+    android:paddingStart="@dimen/activity_margin"
+    android:paddingEnd="@dimen/activity_margin">
 
     <RelativeLayout
         android:id="@+id/top_toolbar_holder"
