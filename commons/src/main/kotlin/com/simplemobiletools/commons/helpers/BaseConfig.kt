@@ -17,15 +17,61 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.LinkedList
 import java.util.Locale
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 // Two BaseConfig instances are created due to the Config in the app module. To receive notifications of value changes in both instances, implement it as a singleton.
 object ConfigChangeBus {
     val flow = MutableSharedFlow<String>(replay = 0, extraBufferCapacity = 64, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 }
 
+abstract class MMKVConfig {
+    protected abstract val mmkv: MMKV
+
+    protected fun boolean(key: String, defaultValue: Boolean) = object : ReadWriteProperty<Any, Boolean> {
+        override fun getValue(thisRef: Any, property: KProperty<*>): Boolean {
+            return mmkv.decodeBool(key, defaultValue)
+        }
+
+        override fun setValue(thisRef: Any, property: KProperty<*>, value: Boolean) {
+            mmkv.encode(key, value)
+        }
+    }
+
+    protected fun int(key: String, defaultValue: Int) = object : ReadWriteProperty<Any, Int> {
+        override fun getValue(thisRef: Any, property: KProperty<*>): Int {
+            return mmkv.decodeInt(key, defaultValue)
+        }
+
+        override fun setValue(thisRef: Any, property: KProperty<*>, value: Int) {
+            mmkv.encode(key, value)
+        }
+    }
+
+    protected fun long(key: String, defaultValue: Long) = object : ReadWriteProperty<Any, Long> {
+        override fun getValue(thisRef: Any, property: KProperty<*>): Long {
+            return mmkv.decodeLong(key, defaultValue)
+        }
+
+        override fun setValue(thisRef: Any, property: KProperty<*>, value: Long) {
+            mmkv.encode(key, value)
+        }
+    }
+
+    protected fun string(key: String, defaultValue: String) = object : ReadWriteProperty<Any, String> {
+        override fun getValue(thisRef: Any, property: KProperty<*>): String {
+            return mmkv.decodeString(key, defaultValue) ?: defaultValue
+        }
+
+        override fun setValue(thisRef: Any, property: KProperty<*>, value: String) {
+            mmkv.encode(key, value)
+        }
+    }
+}
+
 // BaseConfig is singleton by getInstance(), But App module's Config has BaseConfig
-open class BaseConfig(val context: Context) {
-    protected val mmkv: MMKV = MMKV.defaultMMKV()
+open class BaseConfig(val context: Context) : MMKVConfig() {
+    override val mmkv: MMKV = MMKV.defaultMMKV()
     private val changeNotifier get() = ConfigChangeBus.flow
 
     // Migrate SharedPreferences to MMKV
