@@ -2,6 +2,7 @@ package com.simplemobiletools.commons.helpers
 
 import android.os.Looper
 import android.util.Log
+import com.simplemobiletools.commons.BuildConfig
 
 
 /**
@@ -10,35 +11,44 @@ import android.util.Log
 object TraceUtils {
     private const val TAG = "__T"
 
+    @JvmStatic
     fun e1(msg: String) {
-        print(Log.ERROR, 1, msg)
+        if (BuildConfig.DEBUG) print(Log.ERROR, 1, msg)
     }
 
+    @JvmStatic
     fun e(msg: String) {
-        print(Log.ERROR, msg)
+        if (BuildConfig.DEBUG) print(Log.ERROR, msg)
     }
 
+    @JvmStatic
     fun w(msg: String) {
-        print(Log.WARN, msg)
+        if (BuildConfig.DEBUG) print(Log.WARN, msg)
     }
 
+    @JvmStatic
     fun i(msg: String) {
-        print(Log.INFO, msg)
+        if (BuildConfig.DEBUG) print(Log.INFO, msg)
     }
 
+    @JvmStatic
     fun d(msg: String) {
-        print(Log.DEBUG, msg)
+        if (BuildConfig.DEBUG) print(Log.DEBUG, msg)
     }
 
+    @JvmStatic
     fun v(msg: String) {
-        print(Log.VERBOSE, msg)
+        if (BuildConfig.DEBUG) print(Log.VERBOSE, msg)
     }
 
+    @JvmStatic
     fun print(level: Int, msg: String) {
-        print(level, level - 1, msg)
+        if (BuildConfig.DEBUG) print(level, level - 1, msg)
     }
 
+    @JvmStatic
     fun print(level: Int, lines: Int, msg: String) {
+        if (!BuildConfig.DEBUG) return
         val sb = StringBuilder()
         sb.append(msg)
         if (lines > 2) {
@@ -69,7 +79,9 @@ object TraceUtils {
         }
     }
 
+    @JvmStatic
     fun assertUiThread() {
+        if (!BuildConfig.DEBUG) return
         if (Looper.myLooper() != Looper.getMainLooper()) {
             throw AssertionError("assert Ui Thread")
         }
@@ -77,8 +89,8 @@ object TraceUtils {
 }
 
 fun Lx(msg: String, level: Int = Log.ERROR, lines: Int = 1) = TraceUtils.print(level, lines, msg)
-fun Te(msg: String, lines: Int = 5) = TraceUtils.print(Log.ERROR, lines, msg)
-fun Tw(msg: String, lines: Int = 4) = TraceUtils.print(Log.WARN, lines, msg)
-fun Ti(msg: String, lines: Int = 3) = TraceUtils.print(Log.INFO, lines, msg)
-fun Td(msg: String, lines: Int = 2) = TraceUtils.print(Log.DEBUG, lines, msg)
-fun Tv(msg: String, lines: Int = 1) = TraceUtils.print(Log.VERBOSE, lines, msg)
+fun Le(msg: String, lines: Int = 5) = TraceUtils.print(Log.ERROR, lines, msg)
+fun Lw(msg: String, lines: Int = 4) = TraceUtils.print(Log.WARN, lines, msg)
+fun Li(msg: String, lines: Int = 3) = TraceUtils.print(Log.INFO, lines, msg)
+fun Ld(msg: String, lines: Int = 2) = TraceUtils.print(Log.DEBUG, lines, msg)
+fun Lv(msg: String, lines: Int = 1) = TraceUtils.print(Log.VERBOSE, lines, msg)
