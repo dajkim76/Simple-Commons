@@ -448,9 +448,8 @@ fun isOnMainThread() = Looper.myLooper() == Looper.getMainLooper()
 
 fun ensureBackgroundThread(callback: () -> Unit) {
     if (isOnMainThread()) {
-        Thread {
-            callback()
-        }.start()
+        // Use Thread pool
+        CommonExecutors.execute(callback)
     } else {
         callback()
     }
