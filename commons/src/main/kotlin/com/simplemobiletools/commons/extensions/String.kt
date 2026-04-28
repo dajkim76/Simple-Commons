@@ -13,15 +13,15 @@ import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.helpers.*
+import org.joda.time.DateTime
+import org.joda.time.Years
+import org.joda.time.format.DateTimeFormat
 import java.io.File
 import java.text.DateFormat
 import java.text.Normalizer
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.regex.Pattern
-import org.joda.time.DateTime
-import org.joda.time.Years
-import org.joda.time.format.DateTimeFormat
 
 
 fun String.getFilenameFromPath() = substring(lastIndexOf("/") + 1)
@@ -171,14 +171,15 @@ fun String.highlightTextPart(textToHighlight: String, color: Int, highlightAll: 
         return spannableString
     }
 
-    var startIndex = normalizeString().indexOf(textToHighlight, 0, true)
+    val normalizedString = normalizeString()
+    var startIndex = normalizedString.indexOf(textToHighlight, 0, true)
     val indexes = ArrayList<Int>()
     while (startIndex >= 0) {
         if (startIndex != -1) {
             indexes.add(startIndex)
         }
 
-        startIndex = normalizeString().indexOf(textToHighlight, startIndex + textToHighlight.length, true)
+        startIndex = normalizedString.indexOf(textToHighlight, startIndex + textToHighlight.length, true)
         if (!highlightAll) {
             break
         }
@@ -189,7 +190,7 @@ fun String.highlightTextPart(textToHighlight: String, color: Int, highlightAll: 
         try {
             val regex = TextUtils.join("(\\D*)", textToHighlight.toCharArray().toTypedArray())
             val pattern = Pattern.compile(regex)
-            val result = pattern.matcher(normalizeString())
+            val result = pattern.matcher(normalizedString)
             if (result.find()) {
                 spannableString.setSpan(ForegroundColorSpan(color), result.start(), result.end(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
             }
