@@ -12,42 +12,42 @@ object TraceUtils {
     private const val TAG = "__T"
 
     @JvmStatic
-    fun e1(msg: String) {
+    fun e1(msg: String?) {
         if (BuildConfig.DEBUG) print(Log.ERROR, 1, msg)
     }
 
     @JvmStatic
-    fun e(msg: String) {
+    fun e(msg: String?) {
         if (BuildConfig.DEBUG) print(Log.ERROR, msg)
     }
 
     @JvmStatic
-    fun w(msg: String) {
+    fun w(msg: String?) {
         if (BuildConfig.DEBUG) print(Log.WARN, msg)
     }
 
     @JvmStatic
-    fun i(msg: String) {
+    fun i(msg: String?) {
         if (BuildConfig.DEBUG) print(Log.INFO, msg)
     }
 
     @JvmStatic
-    fun d(msg: String) {
+    fun d(msg: String?) {
         if (BuildConfig.DEBUG) print(Log.DEBUG, msg)
     }
 
     @JvmStatic
-    fun v(msg: String) {
+    fun v(msg: String?) {
         if (BuildConfig.DEBUG) print(Log.VERBOSE, msg)
     }
 
     @JvmStatic
-    fun print(level: Int, msg: String) {
+    fun print(level: Int, msg: String?) {
         if (BuildConfig.DEBUG) print(level, level - 1, msg)
     }
 
     @JvmStatic
-    fun print(level: Int, lines: Int, msg: String) {
+    fun print(level: Int, lines: Int, msg: String?) {
         if (!BuildConfig.DEBUG) return
         val sb = StringBuilder()
         sb.append(msg)
@@ -88,9 +88,9 @@ object TraceUtils {
     }
 }
 
-fun Lx(msg: String, level: Int = Log.ERROR, lines: Int = 1) = TraceUtils.print(level, lines, msg)
-fun Le(msg: String, lines: Int = 5) = TraceUtils.print(Log.ERROR, lines, msg)
-fun Lw(msg: String, lines: Int = 4) = TraceUtils.print(Log.WARN, lines, msg)
-fun Li(msg: String, lines: Int = 3) = TraceUtils.print(Log.INFO, lines, msg)
-fun Ld(msg: String, lines: Int = 2) = TraceUtils.print(Log.DEBUG, lines, msg)
-fun Lv(msg: String, lines: Int = 1) = TraceUtils.print(Log.VERBOSE, lines, msg)
+fun Lx(msg: String?, level: Int = Log.ERROR, lines: Int = 1) = TraceUtils.print(level, lines, msg)
+fun Le(msg: String?, lines: Int = 5) = TraceUtils.print(Log.ERROR, lines, msg)
+fun Lw(msg: String?, lines: Int = 4) = TraceUtils.print(Log.WARN, lines, msg)
+fun Li(msg: String?, lines: Int = 3) = TraceUtils.print(Log.INFO, lines, msg)
+fun Ld(msg: String?, lines: Int = 2) = TraceUtils.print(Log.DEBUG, lines, msg)
+fun Lv(msg: String?, lines: Int = 1) = TraceUtils.print(Log.VERBOSE, lines, msg)
