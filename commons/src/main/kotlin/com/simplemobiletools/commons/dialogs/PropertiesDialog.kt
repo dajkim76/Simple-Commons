@@ -27,7 +27,13 @@ class PropertiesDialog : BasePropertiesDialog {
      * @param path the file path
      * @param countHiddenItems toggle determining if we will count hidden files themselves and their sizes (reasonable only at directory properties)
      */
-    constructor(activity: Activity, path: String, countHiddenItems: Boolean = false) : super(activity) {
+    constructor(
+        activity: Activity,
+        path: String,
+        countHiddenItems: Boolean = false,
+        neutralButtonTextId: Int = 0,
+        onNeutralButtonClick: ((AlertDialog) -> Unit)? = null
+    ) : super(activity) {
         if (!activity.getDoesFilePathExist(path) && !path.startsWith("content://")) {
             activity.toast(String.format(activity.getString(R.string.source_file_doesnt_exist), path))
             return
@@ -39,7 +45,9 @@ class PropertiesDialog : BasePropertiesDialog {
         val builder = activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok, null)
 
-        if (!path.startsWith("content://") && path.canModifyEXIF() && activity.isPathOnInternalStorage(path)) {
+        if (neutralButtonTextId != 0) {
+            builder.setNeutralButton(neutralButtonTextId, null)
+        } else if (!path.startsWith("content://") && path.canModifyEXIF() && activity.isPathOnInternalStorage(path)) {
             if ((isRPlus() && Environment.isExternalStorageManager()) || (!isRPlus() && activity.hasPermission(PERMISSION_WRITE_STORAGE))) {
                 builder.setNeutralButton(R.string.remove_exif, null)
             }
@@ -47,8 +55,14 @@ class PropertiesDialog : BasePropertiesDialog {
 
         builder.apply {
             mActivity.setupDialogStuff(mDialogView.root, this, R.string.properties) { alertDialog ->
-                alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
-                    removeEXIFFromPath(path)
+                if (neutralButtonTextId != 0) {
+                    alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
+                        onNeutralButtonClick?.invoke(alertDialog)
+                    }
+                } else {
+                    alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
+                        removeEXIFFromPath(path)
+                    }
                 }
             }
         }
