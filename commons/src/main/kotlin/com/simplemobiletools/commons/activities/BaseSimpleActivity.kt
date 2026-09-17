@@ -28,6 +28,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -103,6 +104,25 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
 //                }
 //            }
 //        }
+
+        // Back Pressed Callback
+        val baseBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (handleBackPressed()) {
+                    return
+                }
+                isEnabled = false
+                onBackPressedDispatcher.onBackPressed()
+                isEnabled = true
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this, baseBackPressedCallback)
+    }
+
+    // onBackPressed는 handleBackPressed로 마이그레이션하기.
+    open fun handleBackPressed(): Boolean {
+        return false
     }
 
     @SuppressLint("NewApi")

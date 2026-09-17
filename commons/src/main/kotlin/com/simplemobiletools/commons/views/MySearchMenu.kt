@@ -20,7 +20,7 @@ class MySearchMenu(context: Context, attrs: AttributeSet) : AppBarLayout(context
     var onSearchTextChangedListener: ((text: String) -> Unit)? = null
     var onNavigateBackClickListener: (() -> Unit)? = null
 
-    val binding = MenuSearchBinding.inflate(LayoutInflater.from(context), this, true)
+    val binding = MenuSearchBinding.inflate(LayoutInflater.from(context), this)
 
     fun getToolbar() = binding.topToolbar
 
@@ -77,15 +77,6 @@ class MySearchMenu(context: Context, attrs: AttributeSet) : AppBarLayout(context
         binding.topToolbarSearch.hint = text
     }
 
-    fun toggleHideOnScroll(hideOnScroll: Boolean) {
-        val params = binding.topAppBarLayout.layoutParams as LayoutParams
-        if (hideOnScroll) {
-            params.scrollFlags = LayoutParams.SCROLL_FLAG_SCROLL or LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-        } else {
-            params.scrollFlags = params.scrollFlags.removeBit(LayoutParams.SCROLL_FLAG_SCROLL or LayoutParams.SCROLL_FLAG_ENTER_ALWAYS)
-        }
-    }
-
     fun toggleForceArrowBackIcon(useArrowBack: Boolean) {
         this.useArrowIcon = useArrowBack
         val (icon, accessibilityString) = if (useArrowBack) {
@@ -103,7 +94,6 @@ class MySearchMenu(context: Context, attrs: AttributeSet) : AppBarLayout(context
         val contrastColor = backgroundColor.getContrastColor()
 
         setBackgroundColor(backgroundColor)
-        binding.topAppBarLayout.setBackgroundColor(backgroundColor)
         binding.topToolbarSearchIcon.applyColorFilter(contrastColor)
         binding.topToolbarHolder.background?.applyColorFilter(context.getProperPrimaryColor().adjustAlpha(LOWER_ALPHA))
         binding.topToolbarSearch.setTextColor(contrastColor)

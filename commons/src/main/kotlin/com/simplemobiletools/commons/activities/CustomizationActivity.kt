@@ -50,7 +50,7 @@ class CustomizationActivity : BaseSimpleActivity() {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        EdgeToEdgeHelper.applyWindowInsets(binding.customizationToolbar, true, binding.root)
         setupOptionsMenu()
         refreshMenuItems()
 
@@ -115,7 +115,7 @@ class CustomizationActivity : BaseSimpleActivity() {
             setTheme(getThemeId(this))
         }
 
-        setupToolbar(binding.customizationToolbar, NavigationIcon.Cross, getColoredMaterialStatusBarColor())
+        setupToolbar(binding.customizationToolbar, NavigationIcon.Arrow, getColoredMaterialStatusBarColor())
     }
 
     private fun refreshMenuItems() {
@@ -135,11 +135,12 @@ class CustomizationActivity : BaseSimpleActivity() {
         }
     }
 
-    override fun onBackPressed() {
+    override fun handleBackPressed(): Boolean {
         if (hasUnsavedChanges && System.currentTimeMillis() - lastSavePromptTS > SAVE_DISCARD_PROMPT_INTERVAL) {
             promptSaveDiscard()
+            return true
         } else {
-            super.onBackPressed()
+            return super.handleBackPressed()
         }
     }
 
@@ -241,7 +242,7 @@ class CustomizationActivity : BaseSimpleActivity() {
             )
 
             updateMenuItemColors(binding.customizationToolbar.menu, getCurrentStatusBarColor())
-            setupToolbar(binding.customizationToolbar, NavigationIcon.Cross, getCurrentStatusBarColor())
+            setupToolbar(binding.customizationToolbar, NavigationIcon.Arrow, getCurrentStatusBarColor())
         }
     }
 
@@ -259,7 +260,7 @@ class CustomizationActivity : BaseSimpleActivity() {
                     curAppIconColor = baseConfig.customAppIconColor
                     setTheme(getThemeId(curPrimaryColor))
                     updateMenuItemColors(binding.customizationToolbar.menu, curPrimaryColor)
-                    setupToolbar(binding.customizationToolbar, NavigationIcon.Cross, curPrimaryColor)
+                    setupToolbar(binding.customizationToolbar, NavigationIcon.Arrow, curPrimaryColor)
                     setupColorsPickers()
                 } else {
                     baseConfig.customPrimaryColor = curPrimaryColor
@@ -280,7 +281,7 @@ class CustomizationActivity : BaseSimpleActivity() {
                     setTheme(getThemeId(curPrimaryColor))
                     setupColorsPickers()
                     updateMenuItemColors(binding.customizationToolbar.menu, curPrimaryColor)
-                    setupToolbar(binding.customizationToolbar, NavigationIcon.Cross, curPrimaryColor)
+                    setupToolbar(binding.customizationToolbar, NavigationIcon.Arrow, curPrimaryColor)
                 }
             } else {
                 val theme = predefinedThemes[curSelectedThemeId]!!
@@ -296,7 +297,7 @@ class CustomizationActivity : BaseSimpleActivity() {
                 setTheme(getThemeId(getCurrentPrimaryColor()))
                 colorChanged()
                 updateMenuItemColors(binding.customizationToolbar.menu, getCurrentStatusBarColor())
-                setupToolbar(binding.customizationToolbar, NavigationIcon.Cross, getCurrentStatusBarColor())
+                setupToolbar(binding.customizationToolbar, NavigationIcon.Arrow, getCurrentStatusBarColor())
             }
         }
 
@@ -554,12 +555,12 @@ class CustomizationActivity : BaseSimpleActivity() {
                     setTheme(getThemeId(color))
                 }
                 updateMenuItemColors(binding.customizationToolbar.menu, color)
-                setupToolbar(binding.customizationToolbar, NavigationIcon.Cross, color)
+                setupToolbar(binding.customizationToolbar, NavigationIcon.Arrow, color)
             } else {
                 updateActionbarColor(curPrimaryColor)
                 setTheme(getThemeId(curPrimaryColor))
                 updateMenuItemColors(binding.customizationToolbar.menu, curPrimaryColor)
-                setupToolbar(binding.customizationToolbar, NavigationIcon.Cross, curPrimaryColor)
+                setupToolbar(binding.customizationToolbar, NavigationIcon.Arrow, curPrimaryColor)
                 updateTopBarColors(binding.customizationToolbar, curPrimaryColor)
             }
         }
